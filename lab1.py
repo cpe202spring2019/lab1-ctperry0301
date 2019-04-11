@@ -30,25 +30,15 @@ def reverse_rec(int_list):   # must use recursion
 def bin_search(target, low, high, int_list):  # must use recursion
     """searches for target in int_list[low..high] and returns index if found
     If target is not found returns None. If list is None, raises ValueError """
-    
+    mid = (low + high) // 2
     if int_list == None:
         raise ValueError("")
-
-    if (low > high) or len(int_list) == 0: # first base case
-        return None
-
-    mid = int_list[(low + high) // 2] 
-    #print("low:", low, "high:", high, "mid: ", mid,  int_list[low:high + 1])
-
-    if target == mid: #second base case
-        #return index of the target
-        return (low + high) // 2
-     
     else:
-        if target > mid: #recursion 1, low should change
-        #mid is the number at the position, not the index
-            low = (low + high) // 2
-            return bin_search(target, low + 1, high, int_list)
-        elif target < mid: #recursion 2, high should change, low + 1
-            high = (low + high) // 2
-            return bin_search(target, low, high, int_list)
+        if (low > high) or len(int_list) == 0 or low < 0 or high > len(int_list) - 1: # first base case
+            return None
+        elif target == int_list[mid]: #second base case
+            return mid
+        elif target > int_list[mid]: #recursion 1, low should change
+            return bin_search(target, mid + 1, high, int_list)
+        elif target < int_list[mid]: #recursion 2, high should change, low + 1
+            return bin_search(target, low, mid, int_list)
